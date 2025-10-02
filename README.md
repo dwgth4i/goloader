@@ -22,13 +22,17 @@ python3 aes.py ARBITRARY_STOREY.bin
 ```
 go install github.com/dwgth4i/goloader@lastest
 ```
-Or you can just clone the repo and build it yourself
+Or you can just clone the repo and build it yourself (From Windows)
 ```
 git clone https://github.com/dwgth4i/goloader
 
 cd goloader
 
 go build
+```
+Build from Linux
+```
+GOOS=windows GOARCH=amd64 go build -o goloader.exe
 ```
 # Usage
 
