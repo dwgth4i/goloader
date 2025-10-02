@@ -1,4 +1,4 @@
-module module github.com/dwgth4i/goloader
+module github.com/dwgth4i/goloader
 
 go 1.24.3
 
